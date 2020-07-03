@@ -1,25 +1,35 @@
+// Main Container of whole application
+
+
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter,
+  Route,
+  Switch
+} from 'react-router-dom'
+
+// MARK: Store of application
+import reducers from './reducers'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux';
+
+// MARK: Pages of application
+import Home from './Pages/Home/Home'
+import Recommendations from './Pages/Recommendations/Recommendations'
+
+const store = createStore(reducers)
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Switch>
+            <Route exact path="/" component={Recommendations}/>
+            <Route exact path="/list" component={Home}/>
+        </Switch>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
